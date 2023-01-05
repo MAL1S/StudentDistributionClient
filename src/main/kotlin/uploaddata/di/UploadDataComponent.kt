@@ -1,15 +1,50 @@
-package ui.uploaddata.di
+package uploaddata.di
 
 import androidx.compose.runtime.Composable
-import ru.student.distribution.di.AppComponent
+import navigation.NavController
+import di.AppComponent
 import ru.student.distribution.di.BaseComponent
-import ru.student.distribution.ui.uploaddata.UploadDataViewModel
-import ru.student.distribution.ui.uploaddata.UploadDataScreen
+import uploaddata.UploadDataViewModel
+import uploaddata.UploadDataScreen
 import javax.inject.Inject
 
+//@Scope
+//annotation class UploadDataScope
+//
+//@[UploadDataScope Component(
+//    dependencies = [
+//        AppComponent::class
+//    ],
+//    modules = [
+//        UploadDataViewModelModule::class
+//    ]
+//)]
+//interface UploadDataComponent {
+//
+//    @Component.Factory
+//    interface Factory {
+//
+//        fun create(): UploadDataComponent
+//    }
+//}
+
+//@Module
+//interface UploadDataViewModelModule {
+//
+//    companion object {
+//
+//        @UploadDataScope
+//        @Provides
+//        fun provideUploadDataViewModel(syncDataUseCase: SyncDataUseCase): UploadDataViewModel {
+//            return UploadDataViewModel(syncDataUseCase)
+//        }
+//    }
+//}
+
 class UploadDataComponent(
+    navController: NavController,
     appComponent: AppComponent
-): BaseComponent {
+) : BaseComponent {
 
     @Inject
     lateinit var uploadDataViewModel: UploadDataViewModel

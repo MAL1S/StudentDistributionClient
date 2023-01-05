@@ -1,4 +1,4 @@
-package ru.student.distribution.ui.uploaddata
+package uploaddata
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import ru.student.distribution.ui.uploaddata.UploadFileCard
 
 @Composable
 fun UploadDataScreen(
