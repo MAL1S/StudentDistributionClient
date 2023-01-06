@@ -3,7 +3,7 @@ package di
 import dagger.Module
 import dagger.Provides
 import ru.student.distribution.domain.usecase.uploaddata.SyncDataUseCase
-import uploaddata.UploadDataViewModel
+import uploaddata.viewmodel.UploadDataViewModel
 
 @Module
 interface ViewModelModule {
