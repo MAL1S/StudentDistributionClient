@@ -24,11 +24,12 @@ class NavigationHost(
 }
 
 @Composable
-fun  NavigationHost.NavigationGraphBuilder.composable(
-    route: String,
+fun NavigationHost.NavigationGraphBuilder.composable(
+    route: ScreenRoute,
+    bundle: Bundle? = null,
     content: @Composable () -> Unit
 ) {
-    if (navController.currentScreen.value == route) {
+    if (navController.currentScreen.value.sharedScreen.screenRoute == route) {
         content()
     }
 }

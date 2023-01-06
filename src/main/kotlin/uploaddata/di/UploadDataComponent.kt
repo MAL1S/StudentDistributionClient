@@ -1,11 +1,11 @@
 package uploaddata.di
 
 import androidx.compose.runtime.Composable
-import navigation.NavController
 import di.AppComponent
+import navigation.NavController
 import ru.student.distribution.di.BaseComponent
-import uploaddata.UploadDataViewModel
 import uploaddata.UploadDataScreen
+import uploaddata.UploadDataViewModel
 import javax.inject.Inject
 
 //@Scope
@@ -42,12 +42,23 @@ import javax.inject.Inject
 //}
 
 class UploadDataComponent(
-    navController: NavController,
-    appComponent: AppComponent
+    appComponent: AppComponent,
+    private val navController: NavController
 ) : BaseComponent {
+
+    companion object {
+        fun create() {
+
+        }
+    }
 
     @Inject
     lateinit var uploadDataViewModel: UploadDataViewModel
+
+    private val id: Int by lazy {
+        val bundle = navController.currentScreen.value.bundle
+        bundle?.getInt("id") ?: -1
+    }
 
     init {
         appComponent.inject(this)
@@ -55,6 +66,6 @@ class UploadDataComponent(
 
     @Composable
     override fun render() {
-        UploadDataScreen(uploadDataViewModel)
+        UploadDataScreen(navController, uploadDataViewModel, id)
     }
 }
