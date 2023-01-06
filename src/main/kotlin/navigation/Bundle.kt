@@ -10,14 +10,20 @@ class Bundle {
 
     fun getInt(tag: String): Int? {
         val value = args[tag]
-        if (value !is Int?) throw IllegalArgumentException("Value $value is not Int?")
-        return value
+        try {
+            return value as Int?
+        } catch (e: ClassCastException) {
+            throw IllegalArgumentException("Type Int? was expected but ${value?.javaClass?.name} was given")
+        }
     }
 
     fun getString(tag: String): String? {
         val value = args[tag]
-        if (value !is String?) throw IllegalArgumentException("Value $value is not Int?")
-        return value
+        try {
+            return value as String?
+        } catch (e: ClassCastException) {
+            throw IllegalArgumentException("Type String? was expected but ${value?.javaClass?.name} was given")
+        }
     }
 
     fun getAny(tag: String): Any? = args[tag]

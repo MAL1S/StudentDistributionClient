@@ -8,7 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -31,28 +30,9 @@ fun main(args: Array<String>) = application {
     Window(
         onCloseRequest = ::exitApplication,
         state = WindowState(width = 800.dp, height = 600.dp),
-        title = "Medium"
+        title = "StudentDistributionClient"
     ) {
-//        rememberCoroutineScope().launch {
-//            withContext(Dispatchers.IO) {
-//                val response = ProjectFairClient.getClient().getProjects()
-//                //println(response)
-//            }
-//        }
-
-//        UploadDataScreen(
-//            uploadDataViewModel = UploadDataViewModel(
-//                syncDataUseCase = SyncDataUseCase(
-//                    uploadDataRepository = UploadDataRepositoryImpl(
-//                        ioDispatcher = Dispatchers.IO
-//                    )
-//                )
-//            )
-//        )
-
-        //UploadDataComponent(appComponent).render()
         App()
-
 //        UploadFileCard(
 //            fileTypeName = "Students",
 //            onPickFileClicked = {
@@ -86,19 +66,19 @@ fun App() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 NavigationRail(
-                    modifier = Modifier.align(Alignment.CenterVertically).fillMaxHeight()
+                    modifier = Modifier.fillMaxHeight()
                 ) {
                     navBarScreens.forEach {
                         NavigationRailItem(
                             selected = currentScreen.sharedScreen.parentScreenRoute == it.sharedScreen.parentScreenRoute,
                             icon = {
                                 Icon(
-                                    imageVector = it.sharedScreen.icon,
+                                    imageVector = it.sharedScreen.icon!!,
                                     contentDescription = it.sharedScreen.title
                                 )
                             },
                             label = {
-                                Text(it.sharedScreen.title)
+                                Text(it.sharedScreen.title!!)
                             },
                             alwaysShowLabel = false,
                             onClick = {
@@ -111,8 +91,6 @@ fun App() {
                 Box(
                     modifier = Modifier.fillMaxHeight()
                 ) {
-
-                    // This is how you can use
                     CustomNavigationHost(navController = navController, appComponent = appComponent)
                 }
             }
