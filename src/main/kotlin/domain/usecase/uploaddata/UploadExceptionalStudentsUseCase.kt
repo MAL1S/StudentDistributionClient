@@ -11,7 +11,7 @@ class UploadExceptionalStudentsUseCase @Inject constructor(
     private val uploadDataRepository: UploadDataRepository
 ): BaseFlowUseCase<Boolean>() {
 
-    override operator fun invoke(vararg args: Any): Flow<DataState<Boolean>> = flow {
+    override operator fun invoke(): Flow<DataState<Boolean>> = flow {
         emit(DataState.Loading)
         try {
             val response = uploadDataRepository.uploadExceptionalStudents()

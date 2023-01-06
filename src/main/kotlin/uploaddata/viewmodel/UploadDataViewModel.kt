@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.student.distribution.core.base.DataState
 import ru.student.distribution.core.base.mvi.BaseViewModel
-import ru.student.distribution.domain.usecase.uploaddata.SyncDataUseCase
+import domain.usecase.uploaddata.SyncDataUseCase
 import uploaddata.contract.UploadDataContract
 import java.io.File
 import javax.inject.Inject

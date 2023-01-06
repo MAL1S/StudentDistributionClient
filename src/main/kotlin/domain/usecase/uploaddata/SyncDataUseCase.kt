@@ -1,4 +1,4 @@
-package ru.student.distribution.domain.usecase.uploaddata
+package domain.usecase.uploaddata
 
 import domain.usecase.base.BaseFlowUseCase
 import kotlinx.coroutines.flow.Flow

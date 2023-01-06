@@ -2,7 +2,8 @@ package di
 
 import dagger.Module
 import dagger.Provides
-import ru.student.distribution.domain.usecase.uploaddata.SyncDataUseCase
+import domain.usecase.uploaddata.SyncDataUseCase
+import domain.usecase.uploaddata.UploadExceptionalStudentsUseCase
 import uploaddata.viewmodel.UploadDataViewModel
 
 @Module
@@ -12,9 +13,13 @@ interface ViewModelModule {
 
 
         @Provides
-        fun provideUploadDataViewModel(syncDataUseCase: SyncDataUseCase): UploadDataViewModel {
+        fun provideUploadDataViewModel(
+            syncDataUseCase: SyncDataUseCase,
+            uploadExceptionalStudentsUseCase: UploadExceptionalStudentsUseCase
+        ): UploadDataViewModel {
             return UploadDataViewModel(
-                syncDataUseCase = syncDataUseCase
+                syncDataUseCase = syncDataUseCase,
+                uploadExceptionalStudentsUseCase = uploadExceptionalStudentsUseCase
             )
         }
     }
