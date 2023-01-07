@@ -49,7 +49,7 @@ object ProjectDao: Dao<domain.model.Project>(Project) {
                 it[dateEnd] = item.dateEnd
                 it[customer] = item.customer ?: ""
                 it[additionalInf] = item.additionalInf ?: ""
-                it[productResult] = item.productResult ?: ""
+                it[productResult] = item.productResult
                 it[studyResult] = item.studyResult
                 it[supervisors] = item.supervisors
             }

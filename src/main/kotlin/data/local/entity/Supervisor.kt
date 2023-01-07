@@ -8,3 +8,12 @@ object Supervisor: Table() {
 
     override val primaryKey = PrimaryKey(id)
 }
+
+//fun test() {
+//    Supervisor::class.memberProperties.forEach {
+//        println("${it.returnType} == $type")
+//        if (it.returnType == type) {
+//            println(it)
+//        }
+//    }
+//}
