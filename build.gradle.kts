@@ -32,6 +32,8 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:$daggerVersion")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20")
+
+    implementation("org.jetbrains.exposed:exposed-core:0.41.1")
 }
 
 tasks.test {

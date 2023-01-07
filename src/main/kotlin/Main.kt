@@ -33,18 +33,25 @@ fun main(args: Array<String>) = application {
         title = "StudentDistributionClient"
     ) {
         App()
-
-//        UploadFileCard(
-//            fileTypeName = "Students",
-//            onPickFileClicked = {
-//                openFileDialog(
-//                    window = window,
-//                    title = "SHIT",
-//                    allowedExtensions = listOf(".xlsx", ".xls"),
-//                    allowMultiSelection = false
-//                )
+//        DriverManager.getConnection("jdbc:sqlite:./sampledb.db")
+//        Database.connect("jdbc:h2:mem:test", driver = "org.h2.Driver", user = "root", password = "")
+//        transaction {
+//            SchemaUtils.create(Supervisor)
+//            addLogger(StdOutSqlLogger)
+//            Supervisor.insert {
+//                it[id] = 1
+//                it[name] = "Ivan"
 //            }
-//        )
+//            Supervisor.insert {
+//                it[id] = 2
+//                it[name] = "Sergey"
+//            }
+//            Supervisor.insert {
+//                it[id] = 3
+//                it[name] = "Lol"
+//            }
+//            println(Supervisor.selectAll())
+//        }
     }
 }
 
