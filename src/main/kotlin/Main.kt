@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import common.database.DatabaseConnection
 import di.AppComponent
 import di.DaggerAppComponent
 import navigation.CustomNavigationHost
@@ -32,28 +33,14 @@ fun main(args: Array<String>) = application {
         state = WindowState(width = 800.dp, height = 600.dp),
         title = "StudentDistributionClient"
     ) {
+        DatabaseConnection.connect()
         App()
-//        DriverManager.getConnection("jdbc:sqlite:./sampledb.db")
-//        Database.connect("jdbc:h2:mem:test", driver = "org.h2.Driver", user = "root", password = "")
-//        transaction {
-//            SchemaUtils.create(Supervisor)
-//            addLogger(StdOutSqlLogger)
-//            Supervisor.insert {
-//                it[id] = 1
-//                it[name] = "Ivan"
-//            }
-//            Supervisor.insert {
-//                it[id] = 2
-//                it[name] = "Sergey"
-//            }
-//            Supervisor.insert {
-//                it[id] = 3
-//                it[name] = "Lol"
-//            }
-//            println(Supervisor.selectAll())
-//        }
     }
 }
+
+data class Test(
+    val name: String
+)
 
 @Composable
 fun App() {
