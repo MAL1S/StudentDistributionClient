@@ -14,12 +14,15 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import common.database.DatabaseConnection
+import data.local.dao.SupervisorDao
 import di.AppComponent
 import di.DaggerAppComponent
+import kotlinx.coroutines.runBlocking
 import navigation.CustomNavigationHost
 import navigation.Screen
 import navigation.SharedScreen
 import navigation.rememberNavController
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 private val appComponent: AppComponent by lazy {
     DaggerAppComponent
@@ -34,13 +37,14 @@ fun main(args: Array<String>) = application {
         title = "StudentDistributionClient"
     ) {
         DatabaseConnection.connect()
-        App()
+        //App()
+        runBlocking {
+            newSuspendedTransaction {
+                println(SupervisorDao.getAll())
+            }
+        }
     }
 }
-
-data class Test(
-    val name: String
-)
 
 @Composable
 fun App() {
