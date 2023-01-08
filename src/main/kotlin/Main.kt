@@ -34,13 +34,7 @@ fun main(args: Array<String>) = application {
         title = "StudentDistributionClient"
     ) {
         DatabaseConnection.connect()
-        //App()
-//        runBlocking {
-//            newSuspendedTransaction {
-//                println(SupervisorDao.getAll())
-//            }
-//        }
-        //test()
+        App()
     }
 }
 

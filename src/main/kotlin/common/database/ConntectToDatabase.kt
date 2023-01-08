@@ -1,10 +1,12 @@
 package common.database
 
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.TransactionManager
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import java.sql.Connection
 
 object DatabaseConnection {
@@ -22,8 +24,20 @@ object DatabaseConnection {
                 password = "root"
             )
         }
-        transaction {
-            addLogger(StdOutSqlLogger)
+        runBlocking {
+            newSuspendedTransaction {
+                addLogger(StdOutSqlLogger)
+                SchemaUtils.create(
+                    data.local.entity.Speciality,
+                    data.local.entity.Student,
+                    data.local.entity.Project,
+                    data.local.entity.Participation,
+                    data.local.entity.Supervisor,
+                    data.local.entity.ProjectSupervisor,
+                    data.local.entity.ProjectSpeciality,
+                    data.local.entity.GeneratedDistribution,
+                )
+            }
         }
     }
 }
