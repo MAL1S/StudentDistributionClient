@@ -53,7 +53,7 @@ fun UploadDataScreen(
 fun SideEffectHandler(effectState: UploadDataContract.SideEffect) {
     when (effectState) {
         is UploadDataContract.SideEffect.ShowError -> {
-            println("ERROR SIDE EFFECT")
+            println("ERROR SIDE EFFECT ${effectState.message}")
         }
     }
 }

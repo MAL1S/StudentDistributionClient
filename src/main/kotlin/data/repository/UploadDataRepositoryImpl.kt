@@ -1,6 +1,13 @@
 package data.repository
 
+import data.local.dao.ParticipationDao
+import data.local.dao.ProjectDao
+import data.local.dao.SpecialtyDao
 import data.local.dao.StudentDao
+import domain.model.Participation
+import domain.model.Project
+import domain.model.Specialty
+import domain.model.Student
 import domain.repository.UploadDataRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -14,7 +21,122 @@ class UploadDataRepositoryImpl @Inject constructor(
 
     override suspend fun syncData(): Boolean {
         return withContext(ioDispatcher) {
-            true
+            val groups = mapOf(0 to "ИСТб-1", 1 to "АСУб-1")
+            val students = mutableListOf<Student>()
+            (0..35).forEach {
+                val groupId = if (it < 15) 1 else 0
+                val groupNumber = groups[groupId]!!
+                students.add(
+                    Student(
+                        id = it,
+                        name = "Name $it",
+                        group = groupNumber,
+                        shouldDistribute = true,
+                        specialtyId = groupId
+                    )
+                )
+            }
+            val projects = mutableListOf<Project>(
+                Project(
+                    id = 1,
+                    title = "Project 1",
+                    places = 15,
+                    freePlaces = 15,
+                    supervisors = "Supervisor 1",
+                    difficulty = 1,
+                    customer = "",
+                    createdAt = "",
+                    updatedAt = "",
+                    goal = "",
+                    dateStart = "",
+                    dateEnd = "",
+                    additionalInf = "",
+                    productResult = "",
+                    studyResult = ""
+                ),
+                Project(
+                    id = 2,
+                    title = "Project 2",
+                    places = 15,
+                    freePlaces = 15,
+                    supervisors = "Supervisor 2",
+                    difficulty = 1,
+                    customer = "",
+                    createdAt = "",
+                    updatedAt = "",
+                    goal = "",
+                    dateStart = "",
+                    dateEnd = "",
+                    additionalInf = "",
+                    productResult = "",
+                    studyResult = ""
+                ),
+            )
+            val participation = mutableListOf<Participation>()
+
+            participation.add(
+                Participation(
+                    id = 0,
+                    priority = 1,
+                    projectId = 1,
+                    studentId = 15
+                )
+            )
+            participation.add(
+                Participation(
+                    id = 1,
+                    priority = 1,
+                    projectId = 1,
+                    studentId = 16
+                )
+            )
+            participation.add(
+                Participation(
+                    id = 2,
+                    priority = 2,
+                    projectId = 2,
+                    studentId = 0
+                )
+            )
+            participation.add(
+                Participation(
+                    id = 3,
+                    priority = 1,
+                    projectId = 2,
+                    studentId = 1
+                )
+            )
+            participation.add(
+                Participation(
+                    id = 4,
+                    priority = 1,
+                    projectId = 2,
+                    studentId = 2
+                )
+            )
+
+            val institute = "Institute"
+            val specialities = mutableListOf(
+                Specialty(id = 0, name = "ИСТб"),
+                Specialty(id = 1, name = "АСУб")
+            )
+            val specialGroups = mutableListOf<String>()
+
+            try {
+                SpecialtyDao.insert(specialities)
+                StudentDao.insert(students)
+                ProjectDao.insert(projects)
+                ParticipationDao.insert(participation)
+
+                println(SpecialtyDao.getAll())
+                println(StudentDao.getAll())
+                println(ProjectDao.getAll())
+                println(ParticipationDao.getAll())
+
+                true
+            } catch (e: Exception) {
+                false
+            }
         }
     }
 

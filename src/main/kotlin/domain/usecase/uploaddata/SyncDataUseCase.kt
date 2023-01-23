@@ -16,6 +16,7 @@ class SyncDataUseCase @Inject constructor(
             val response = uploadDataRepository.syncData()
             emit(DataState.Success(response))
         } catch (e: Exception) {
+            println(e)
             emit(DataState.Error(e))
         }
     }
