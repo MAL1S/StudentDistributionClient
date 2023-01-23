@@ -11,19 +11,15 @@ import org.jetbrains.exposed.sql.update
 object StudentDao : Dao<domain.model.Student>(Student) {
     override suspend fun getAll(): List<domain.model.Student> {
         return newSuspendedTransaction {
-            val students = mutableListOf<domain.model.Student>()
-            Student.selectAll().forEach {
-                students.add(
-                    domain.model.Student(
-                        id = it[Student.id],
-                        name = it[Student.name],
-                        group = it[Student.group],
-                        shouldDistribute = it[Student.shouldDistribute],
-                        specialtyId = it[Student.specialtyId]
-                    )
+            Student.selectAll().map {
+                domain.model.Student(
+                    id = it[Student.id],
+                    name = it[Student.name],
+                    group = it[Student.group],
+                    shouldDistribute = it[Student.shouldDistribute],
+                    specialtyId = it[Student.specialtyId]
                 )
             }
-            students
         }
     }
 

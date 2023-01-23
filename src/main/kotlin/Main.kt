@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
@@ -40,8 +42,8 @@ fun main(args: Array<String>) = application {
 fun App() {
     val navBarScreens = listOf(
         Screen(SharedScreen.UploadScreen),
+        Screen(SharedScreen.PreviewScreen),
         Screen(SharedScreen.AlgorithmScreen),
-        Screen(SharedScreen.PreviewScreen)
     )
     val navController by rememberNavController(navBarScreens[0])
     val currentScreen by remember {
@@ -56,7 +58,7 @@ fun App() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 NavigationRail(
-                    modifier = Modifier.fillMaxHeight()
+                    modifier = Modifier.fillMaxHeight().shadow(2.dp)
                 ) {
                     navBarScreens.forEach {
                         NavigationRailItem(
@@ -65,7 +67,7 @@ fun App() {
                                 Icon(
                                     imageVector = it.sharedScreen.icon!!,
                                     contentDescription = it.sharedScreen.title,
-                                    tint = BlueMainLight
+                                    tint = if (currentScreen.sharedScreen.parentScreenRoute == it.sharedScreen.parentScreenRoute) BlueMainLight else Color.Gray
                                 )
                             },
                             label = {

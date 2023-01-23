@@ -10,7 +10,7 @@ class SyncDataUseCase @Inject constructor(
     private val uploadDataRepository: UploadDataRepository
 ) {
 
-    operator fun invoke(vararg args: Any): Flow<DataState<Boolean>> = flow {
+    operator fun invoke(): Flow<DataState<Boolean>> = flow {
         emit(DataState.Loading)
         try {
             val response = uploadDataRepository.syncData()

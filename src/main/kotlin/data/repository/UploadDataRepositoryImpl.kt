@@ -10,6 +10,7 @@ import domain.model.Specialty
 import domain.model.Student
 import domain.repository.UploadDataRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import parsing.excel.student.ExceptionalStudentExcelReader
 import java.io.File
@@ -18,6 +19,23 @@ import javax.inject.Inject
 class UploadDataRepositoryImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ): UploadDataRepository {
+
+    var id = 1000
+
+    override suspend fun insertStudent() {
+        withContext(Dispatchers.IO) {
+            println("INSERTING")
+            StudentDao.insert(
+                Student(
+                    id = id++,
+                    name = "new name $id",
+                    group = "asdf",
+                    shouldDistribute = true,
+                    specialtyId = 0
+                )
+            )
+        }
+    }
 
     override suspend fun syncData(): Boolean {
         return withContext(ioDispatcher) {
