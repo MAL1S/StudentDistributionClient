@@ -52,6 +52,7 @@ class UploadDataRepositoryImpl @Inject constructor(
                     )
                 )
             }
+            studentRepository.insertStudent(students)
             val projects = mutableListOf<Project>(
                 Project(
                     id = 1,

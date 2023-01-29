@@ -28,6 +28,12 @@ class StudentRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun insertStudent(students: List<Student>) {
+        withContext(ioDispatcher) {
+            studentDao.insert(students)
+        }
+    }
+
     override suspend fun deleteStudent(student: Student) {
         studentDao.delete<Student>(student)
     }

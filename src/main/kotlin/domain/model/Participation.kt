@@ -5,10 +5,10 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
 open class Participation(
-    @PrimaryKey override val id: Int,
-    val studentId: Int,
-    val projectId: Int,
-    val priority: Int
+    @PrimaryKey override var id: Int,
+    var studentId: Int,
+    var projectId: Int,
+    var priority: Int
 ): Entity(), RealmObject {
 
     constructor() : this(0, 0, 0, 0)

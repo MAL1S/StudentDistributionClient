@@ -5,8 +5,8 @@ import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
 open class Specialty(
-    @PrimaryKey override val id: Int,
-    val name: String
+    @PrimaryKey override var id: Int,
+    var name: String
 ): Entity(), RealmObject {
 
     constructor() : this(0, "")
