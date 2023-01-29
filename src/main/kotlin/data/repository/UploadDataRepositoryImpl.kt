@@ -1,9 +1,5 @@
 package data.repository
 
-import data.local.dao.ParticipationDao
-import data.local.dao.ProjectDao
-import data.local.dao.SpecialtyDao
-import data.local.dao.StudentDao
 import domain.model.Participation
 import domain.model.Project
 import domain.model.Specialty
@@ -25,15 +21,15 @@ class UploadDataRepositoryImpl @Inject constructor(
     override suspend fun insertStudent() {
         withContext(Dispatchers.IO) {
             println("INSERTING")
-            StudentDao.insert(
-                Student(
-                    id = id++,
-                    name = "new name $id",
-                    group = "asdf",
-                    shouldDistribute = true,
-                    specialtyId = 0
-                )
-            )
+//            StudentDao.insert(
+//                Student(
+//                    id = id++,
+//                    name = "new name $id",
+//                    group = "asdf",
+//                    shouldDistribute = true,
+//                    specialtyId = 0
+//                )
+//            )
         }
     }
 
@@ -141,15 +137,15 @@ class UploadDataRepositoryImpl @Inject constructor(
             val specialGroups = mutableListOf<String>()
 
             try {
-                SpecialtyDao.insert(specialities)
-                StudentDao.insert(students)
-                ProjectDao.insert(projects)
-                ParticipationDao.insert(participation)
-
-                println(SpecialtyDao.getAll())
-                println(StudentDao.getAll())
-                println(ProjectDao.getAll())
-                println(ParticipationDao.getAll())
+//                SpecialtyDao.insert(specialities)
+//                StudentDao.insert(students)
+//                ProjectDao.insert(projects)
+//                ParticipationDao.insert(participation)
+//
+//                println(SpecialtyDao.getAll())
+//                println(StudentDao.getAll())
+//                println(ProjectDao.getAll())
+//                println(ParticipationDao.getAll())
 
                 true
             } catch (e: Exception) {
@@ -162,7 +158,7 @@ class UploadDataRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             try {
                 val studentIds = ExceptionalStudentExcelReader().read(file.path)
-                StudentDao.markStudentsAsExceptional(studentIds)
+                //StudentDao.markStudentsAsExceptional(studentIds)
                 true
             } catch (e: Exception) {
                 false

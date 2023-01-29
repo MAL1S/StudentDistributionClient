@@ -1,8 +1,7 @@
 package data.local.entity.base
 
-import org.jetbrains.exposed.sql.Column
-import org.jetbrains.exposed.sql.Table
+import io.realm.kotlin.types.RealmObject
 
-abstract class Entity: Table() {
-    abstract val id: Column<Int>
+open class Entity: RealmObject {
+    open val id: Int = 0
 }

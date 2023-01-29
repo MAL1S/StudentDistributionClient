@@ -1,6 +1,6 @@
 package domain.model
 
-data class ProjectSpeciality(
+data class ProjectSpecialty(
     val id: Int,
     val projectId: Int,
     val specialityId: Int

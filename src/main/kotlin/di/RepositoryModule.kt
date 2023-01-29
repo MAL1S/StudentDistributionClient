@@ -2,6 +2,7 @@ package di
 
 import dagger.Module
 import dagger.Provides
+import data.local.dao.StudentDao
 import data.repository.StudentRepositoryImpl
 import data.repository.UploadDataRepositoryImpl
 import domain.repository.UploadDataRepository
@@ -25,10 +26,12 @@ interface RepositoryModule {
         @AppScope
         @Provides
         fun provideStudentRepository(
-            ioDispatcher: CoroutineDispatcher
+            ioDispatcher: CoroutineDispatcher,
+            studentDao: StudentDao
         ): StudentRepositoryImpl {
             return StudentRepositoryImpl(
-                ioDispatcher = ioDispatcher
+                ioDispatcher = ioDispatcher,
+                studentDao = studentDao
             )
         }
     }
