@@ -3,7 +3,7 @@ package di
 import dagger.Module
 import dagger.Provides
 import data.local.dao.StudentDao
-import domain.model.Student
+import domain.model.*
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 
@@ -17,7 +17,13 @@ interface DatabaseModule {
         fun provideDatabase(): Realm {
             val configuration = RealmConfiguration.create(
                 schema = setOf(
-                    Student::class
+                    Student::class,
+                    Supervisor::class,
+                    Project::class,
+                    Specialty::class,
+                    Participation::class,
+                    ProjectSpecialty::class,
+                    ProjectSupervisor::class
                 )
             )
             return Realm.open(configuration)

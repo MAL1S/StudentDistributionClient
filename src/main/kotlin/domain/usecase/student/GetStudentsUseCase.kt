@@ -12,12 +12,3 @@ class GetStudentsUseCase @Inject constructor(
 
     operator fun invoke(): Flow<ResultsChange<Student>> = studentRepositoryImpl.getStudents()
 }
-
-class InsertStudentUseCase @Inject constructor(
-    private val studentRepositoryImpl: StudentRepositoryImpl
-) {
-
-    suspend operator fun invoke(student: Student) {
-        studentRepositoryImpl.insertStudent(student)
-    }
-}

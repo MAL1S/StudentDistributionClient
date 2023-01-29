@@ -4,6 +4,7 @@ import domain.model.Participation
 import domain.model.Project
 import domain.model.Specialty
 import domain.model.Student
+import domain.repository.StudentRepository
 import domain.repository.UploadDataRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ import java.io.File
 import javax.inject.Inject
 
 class UploadDataRepositoryImpl @Inject constructor(
-    private val ioDispatcher: CoroutineDispatcher
+    private val ioDispatcher: CoroutineDispatcher,
+    private val studentRepository: StudentRepository
 ): UploadDataRepository {
 
     var id = 1000
@@ -21,15 +23,15 @@ class UploadDataRepositoryImpl @Inject constructor(
     override suspend fun insertStudent() {
         withContext(Dispatchers.IO) {
             println("INSERTING")
-//            StudentDao.insert(
-//                Student(
-//                    id = id++,
-//                    name = "new name $id",
-//                    group = "asdf",
-//                    shouldDistribute = true,
-//                    specialtyId = 0
-//                )
-//            )
+            studentRepository.insertStudent(
+                Student(
+                    id = id++,
+                    name = "new name $id",
+                    group = "asdf",
+                    shouldDistribute = true,
+                    specialtyId = 0
+                )
+            )
         }
     }
 
@@ -59,12 +61,9 @@ class UploadDataRepositoryImpl @Inject constructor(
                     supervisors = "Supervisor 1",
                     difficulty = 1,
                     customer = "",
-                    createdAt = "",
-                    updatedAt = "",
                     goal = "",
                     dateStart = "",
                     dateEnd = "",
-                    additionalInf = "",
                     productResult = "",
                     studyResult = ""
                 ),
@@ -76,12 +75,9 @@ class UploadDataRepositoryImpl @Inject constructor(
                     supervisors = "Supervisor 2",
                     difficulty = 1,
                     customer = "",
-                    createdAt = "",
-                    updatedAt = "",
                     goal = "",
                     dateStart = "",
                     dateEnd = "",
-                    additionalInf = "",
                     productResult = "",
                     studyResult = ""
                 ),
