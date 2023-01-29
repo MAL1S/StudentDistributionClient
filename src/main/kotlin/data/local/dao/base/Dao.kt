@@ -1,6 +1,6 @@
 package data.local.dao.base
 
-import data.local.entity.base.Entity
+import domain.model.base.Entity
 import io.realm.kotlin.Realm
 import io.realm.kotlin.UpdatePolicy
 import io.realm.kotlin.notifications.ResultsChange

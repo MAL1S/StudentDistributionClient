@@ -1,4 +1,4 @@
-package data.local.entity.base
+package domain.model.base
 
 import io.realm.kotlin.types.RealmObject
 

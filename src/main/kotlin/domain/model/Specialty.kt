@@ -1,6 +1,13 @@
 package domain.model
 
-data class Specialty(
-    val id: Int,
+import domain.model.base.Entity
+import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
+
+open class Specialty(
+    @PrimaryKey override val id: Int,
     val name: String
-)
+): Entity(), RealmObject {
+
+    constructor() : this(0, "")
+}
