@@ -12,6 +12,7 @@ group = "ru.student.distribution"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    google()
     mavenLocal()
     mavenCentral()
     maven{
@@ -52,6 +53,8 @@ dependencies {
     implementation("io.realm.kotlin:library-sync:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
     implementation("io.realm.kotlin:library-base:1.5.0")
+
+    //implementation("com.google.accompanist:accompanist-pager:0.29.1-alpha")
 }
 
 kapt {
