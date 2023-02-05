@@ -22,35 +22,35 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import common.theme.BlueMainLight
 import common.theme.GrayLight
-import domain.model.Student
+import domain.model.Project
 import kotlinx.coroutines.launch
 
 @Composable
-fun StudentTableItem(
+fun ProjectTableItem(
     modifier: Modifier = Modifier,
-    student: Student,
+    project: Project,
 ) {
     Row(
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
-            text = student.name,
+            text = project.title,
             modifier = Modifier
                 .fillMaxWidth(0.6f),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
         Text(
-            text = student.id.toString(),
+            text = project.freePlaces.toString(),
             modifier = Modifier
-                .fillMaxWidth(0.5f)
+                .fillMaxWidth(0.3f)
                 .wrapContentWidth(),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
         Text(
-            text = student.group,
+            text = "institute",
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentWidth(),
@@ -61,7 +61,7 @@ fun StudentTableItem(
 }
 
 @Composable
-fun StudentTableHead(
+fun ProjectTableHead(
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -71,19 +71,19 @@ fun StudentTableHead(
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
-            text = "ФИО",
+            text = "Название",
             modifier = Modifier
                 .fillMaxWidth(0.6f)
                 .wrapContentWidth()
         )
         Text(
-            text = "Номер з.к.",
+            text = "Свободные места",
             modifier = Modifier
-                .fillMaxWidth(0.5f)
+                .fillMaxWidth(0.3f)
                 .wrapContentWidth()
         )
         Text(
-            text = "Группа",
+            text = "Институт",
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentWidth()
@@ -93,9 +93,9 @@ fun StudentTableHead(
 }
 
 @Composable
-fun StudentTable(
+fun ProjectTable(
     modifier: Modifier = Modifier,
-    students: List<Student>,
+    projects: List<Project>,
 ) {
     Column(
         modifier = modifier
@@ -105,7 +105,7 @@ fun StudentTable(
                 RoundedCornerShape(10.dp)
             )
     ) {
-        StudentTableHead(
+        ProjectTableHead(
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -126,10 +126,10 @@ fun StudentTable(
                 ),
 
         ) {
-            items(students) { student ->
-                StudentTableItem(
+            items(projects) { project ->
+                ProjectTableItem(
                     modifier = Modifier.fillMaxWidth(),
-                    student = student
+                    project = project
                 )
                 Divider()
             }
