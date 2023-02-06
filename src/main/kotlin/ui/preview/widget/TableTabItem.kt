@@ -1,5 +1,6 @@
 package ui.preview.widget
 
+import YarmarkaIconPack
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,12 +14,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,8 +24,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import common.icon.IcProject
+import common.icon.IcStudent
 import common.theme.BlueMainLight
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TabItem(
     modifier: Modifier = Modifier,
@@ -61,10 +62,13 @@ fun TabItem(
     ) {
         Spacer(Modifier.size(4.dp))
         Icon(
+            //painter = painterResource("ic_student.svg"),
             imageVector = icon,
             contentDescription = null,
             tint = if (selected) colorSelected else colorUnselected,
-            modifier = Modifier.size(60.dp, 60.dp)
+            modifier = Modifier
+                .size(60.dp, 60.dp)
+                .padding(8.dp)
         )
         Spacer(Modifier.size(8.dp))
         Text(
@@ -75,31 +79,6 @@ fun TabItem(
             overflow = TextOverflow.Ellipsis
         )
         Spacer(Modifier.size(4.dp))
-    }
-}
-
-
-@Composable
-fun TabLayout(
-    tabs: List<TabItem>,
-    //onPageSelected: ((tabItem: TabItem) -> Unit)
-) {
-    var selected = remember { 0 }
-
-    Row {
-        tabs.forEachIndexed { index, tabItem ->
-            TabItem(
-                selected = index == selected,
-                modifier = Modifier.size(16.dp),
-                icon = tabItem.icon,
-                title = tabItem.title,
-                colorSelected = Color.Blue,
-                colorUnselected = Color.Red,
-                onClicked = {
-                    selected = index
-                }
-            )
-        }
     }
 }
 
@@ -119,7 +98,7 @@ fun TabHome(
             TabItem(
                 selected = index == selectedTabIndex,
                 icon = tabPage.icon,
-                title = "AAAA",
+                title = tabPage.title,
                 colorSelected = Color.White,
                 colorUnselected = BlueMainLight,
                 onClicked = {
@@ -130,30 +109,53 @@ fun TabHome(
     }
 }
 
-enum class TabPage(val icon: ImageVector) {
-    Students(Icons.Default.Email),
-    Projects(Icons.Default.Info),
+enum class TabPage(
+    val title: String,
+    val icon: ImageVector
+) {
+    Students("Студенты", YarmarkaIconPack.IcStudent),
+    Projects("Проекты", YarmarkaIconPack.IcProject),
 }
 
 sealed class TabItem(
     val index: Int,
-    val icon: ImageVector,
+    val icon: String,
     val title: String,
     val screenToLoad: @Composable () -> Unit,
 ) {
-//    class Students(students: List<Student>) : TabItem(0, Icons.Default.Email, "Студенты", {
-//        StudentTable(students = students)
+//    class Students(
+//        students: List<Student>,
+//        modifier: Modifier = Modifier,
+//    ) : TabItem(
+//        0,
+//        studentIcon,
+//        "Студенты",
+//        {
+//            StudentTable(students = students)
+//        }
+//    )
+//
+//    class Projects(
+//        projects: List<Project>,
+//        modifier: Modifier = Modifier,
+//    ) : TabItem(
+//        0,
+//        projectIcon,
+//        "Проекты",
+//        {
+//            ProjectTable(projects = projects)
+//        }
+//    )
+
+//    object Students : TabItem(
+//        0,
+//        StudentIcon(),
+//        "Студенты",
+//        {
+//        StudentTable(students = listOf())
 //    })
 //
-//    class Projects(projects: List<Project>) : TabItem(0, Icons.Default.Email, "Студенты", {
-//        ProjectTable(projects = projects)
+//    object Projects : TabItem(0, Icons.Default.Email, "Студенты", {
+//        ProjectTable(projects = listOf())
 //    })
-
-    object Students : TabItem(0, Icons.Default.Email, "Студенты", {
-        StudentTable(students = listOf())
-    })
-
-    object Projects : TabItem(0, Icons.Default.Email, "Студенты", {
-        ProjectTable(projects = listOf())
-    })
 }
