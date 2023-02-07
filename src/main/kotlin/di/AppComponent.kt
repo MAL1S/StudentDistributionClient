@@ -13,7 +13,8 @@ annotation class AppScope
         RepositoryModule::class,
         UseCaseModule::class,
         CoroutineDispatcherModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        NetworkModule::class
     ]
 )]
 interface AppComponent {

@@ -1,6 +1,6 @@
-package ru.student.distribution.data.remote.client
+package data.remote.client
 
-import ru.student.distribution.data.remote.api.ProjectFairApi
+import data.remote.api.ProjectFairApi
 
 object ProjectFairClient {
 

@@ -1,9 +1,9 @@
-package ru.student.distribution.data.remote.api
+package data.remote.api
 
-import ru.student.distribution.data.dto.ProjectsResponse
+import data.dto.ProjectResponse
 import retrofit2.http.GET
 
 interface ProjectFairApi {
     @GET("projects")
-    suspend fun getProjects(): ProjectsResponse
+    suspend fun getProjects(): List<ProjectResponse>
 }

@@ -17,7 +17,7 @@ open class Project(
     var customer: String?,
     @SerializedName("product_result") var productResult: String,
     @SerializedName("study_result") var studyResult: String,
-    var supervisors: String,
+    @SerializedName("supervisorsNames") var supervisors: String,
 ) : Entity(), RealmObject {
 
     constructor() : this(

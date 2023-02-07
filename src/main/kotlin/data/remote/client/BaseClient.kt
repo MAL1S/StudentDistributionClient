@@ -1,17 +1,16 @@
-package ru.student.distribution.data.remote.client
+package data.remote.client
 
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object BaseClient {
 
-    private const val BASE_URL = "https://projfair.istu.edu/api/"
+    private const val BASE_URL = "https://projfair.istu.edu/api/admin/"
 
     private fun getOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            //.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
     }
 
