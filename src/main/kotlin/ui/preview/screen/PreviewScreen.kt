@@ -7,9 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import navigation.NavController
 import ui.preview.viewmodel.PreviewViewModel
+import ui.preview.widget.ProjectTable
 import ui.preview.widget.StudentTable
 import ui.preview.widget.TabHome
-import ui.preview.widget.TabPage
+import ui.preview.widget.TabPage.Projects
+import ui.preview.widget.TabPage.Students
 
 @Composable
 fun PreviewScreen(
@@ -22,7 +24,7 @@ fun PreviewScreen(
 //            .background(WhiteDark)
 //    ) {
 //
-    var tabPage by remember { mutableStateOf(TabPage.Students) }
+    var tabPage by remember { mutableStateOf(Students) }
 
     Scaffold(
         topBar = {
@@ -30,16 +32,28 @@ fun PreviewScreen(
                 selectedTabIndex = tabPage.ordinal,
                 onSelectedTab = {
                     tabPage = it
-                    println(tabPage.ordinal)
                 }
             )
         }
     ) {
         val students = previewViewModel.students.collectAsState()
-        StudentTable(
-            modifier = Modifier.padding(24.dp),
-            students = students.value
-        )
+        val projects = previewViewModel.projects.collectAsState()
+        when (tabPage) {
+            Students -> {
+                StudentTable(
+                    modifier = Modifier.padding(24.dp),
+                    students = students.value,
+                    previewViewModel
+                )
+            }
+            Projects -> {
+                ProjectTable(
+                    modifier = Modifier.padding(24.dp),
+                    projects = projects.value,
+                    previewViewModel
+                )
+            }
+        }
     }
 
 //        val students = previewViewModel.students.collectAsState()

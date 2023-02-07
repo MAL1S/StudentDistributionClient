@@ -25,10 +25,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import common.icon.IcProject
-import common.icon.IcStudent
 import common.theme.BlueMainLight
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Regular
+import compose.icons.fontawesomeicons.regular.User
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TabItem(
     modifier: Modifier = Modifier,
@@ -111,51 +112,8 @@ fun TabHome(
 
 enum class TabPage(
     val title: String,
-    val icon: ImageVector
+    val icon: ImageVector,
 ) {
-    Students("Студенты", YarmarkaIconPack.IcStudent),
+    Students("Студенты", FontAwesomeIcons.Regular.User),
     Projects("Проекты", YarmarkaIconPack.IcProject),
-}
-
-sealed class TabItem(
-    val index: Int,
-    val icon: String,
-    val title: String,
-    val screenToLoad: @Composable () -> Unit,
-) {
-//    class Students(
-//        students: List<Student>,
-//        modifier: Modifier = Modifier,
-//    ) : TabItem(
-//        0,
-//        studentIcon,
-//        "Студенты",
-//        {
-//            StudentTable(students = students)
-//        }
-//    )
-//
-//    class Projects(
-//        projects: List<Project>,
-//        modifier: Modifier = Modifier,
-//    ) : TabItem(
-//        0,
-//        projectIcon,
-//        "Проекты",
-//        {
-//            ProjectTable(projects = projects)
-//        }
-//    )
-
-//    object Students : TabItem(
-//        0,
-//        StudentIcon(),
-//        "Студенты",
-//        {
-//        StudentTable(students = listOf())
-//    })
-//
-//    object Projects : TabItem(0, Icons.Default.Email, "Студенты", {
-//        ProjectTable(projects = listOf())
-//    })
 }

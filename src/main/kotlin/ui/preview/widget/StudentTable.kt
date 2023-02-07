@@ -10,7 +10,6 @@ import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -20,10 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import common.compose.rememberForeverLazyListState
 import common.theme.BlueMainLight
 import common.theme.GrayLight
 import domain.model.Student
 import kotlinx.coroutines.launch
+import ui.preview.viewmodel.PreviewViewModel
+
+private const val KEY = "PREVIEW_STUDENTS"
 
 @Composable
 fun StudentTableItem(
@@ -96,6 +99,7 @@ fun StudentTableHead(
 fun StudentTable(
     modifier: Modifier = Modifier,
     students: List<Student>,
+    previewViewModel: PreviewViewModel
 ) {
     Column(
         modifier = modifier
@@ -109,7 +113,7 @@ fun StudentTable(
             modifier = Modifier.fillMaxWidth()
         )
 
-        val scrollState = rememberLazyListState()
+        val scrollState = rememberForeverLazyListState(KEY)
         val coroutineScope = rememberCoroutineScope()
 
         LazyColumn(

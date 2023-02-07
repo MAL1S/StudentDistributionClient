@@ -13,7 +13,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     google()
-    mavenLocal()
     mavenCentral()
     maven{
         url = uri("https://jitpack.io")
@@ -55,8 +54,11 @@ dependencies {
     implementation("io.realm.kotlin:library-base:1.5.0")
 
 
-
-
+    implementation("br.com.devsrsouza.compose.icons.jetbrains:font-awesome:1.0.0")
+    implementation("br.com.devsrsouza.compose.icons.jetbrains:simple-icons:1.0.0")
+    implementation("br.com.devsrsouza.compose.icons.jetbrains:octicons:1.0.0")
+    //implementation("androidx.compose.material:material-icons-extended:1.3.2")
+    //implementation("br.com.devsrsouza.compose.icons.jetbrains:font-awesome:5.15.2")
 }
 
 kapt {
