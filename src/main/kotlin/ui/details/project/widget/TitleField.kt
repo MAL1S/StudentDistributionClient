@@ -2,10 +2,12 @@ package ui.details.project.widget
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,13 +22,12 @@ import common.theme.BlueMainDark
 import common.theme.BlueMainLight
 
 @Composable
-fun EditableDescriptionField(
+fun TitleField(
     modifier: Modifier = Modifier,
-    title: String,
-    content: String,
+    title: String
 ) {
-    var contentText by rememberSaveable(TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(content))
+    var titleText by rememberSaveable(TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(title))
     }
 
     Column(
@@ -34,12 +35,6 @@ fun EditableDescriptionField(
             .padding(horizontal = 12.dp)
             .fillMaxWidth()
     ) {
-        Text(
-            text = title,
-            fontSize = 24.sp,
-            color = BlueMainDark,
-        )
-        Spacer(Modifier.size(8.dp))
         Box(
             modifier = Modifier
                 .border(
@@ -48,12 +43,12 @@ fun EditableDescriptionField(
                 )
         ) {
             BasicTextField(
-                value = contentText,
+                value = titleText,
                 onValueChange = {
-                    contentText = it
+                    titleText = it
                 },
                 textStyle = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 36.sp,
                     color = BlueMainLight,
                 ),
                 modifier = Modifier.fillMaxWidth(),
