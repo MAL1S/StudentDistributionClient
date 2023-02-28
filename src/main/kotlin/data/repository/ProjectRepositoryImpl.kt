@@ -2,7 +2,7 @@ package data.repository
 
 import data.local.dao.ProjectDao
 import data.mapper.projectResponseToResponse
-import data.remote.api.ProjectFairApi
+import data.remote.api.AdminProjectFairApi
 import domain.model.Project
 import domain.model.Student
 import domain.repository.ProjectRepository
@@ -15,14 +15,15 @@ import javax.inject.Inject
 class ProjectRepositoryImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher,
     private val projectDao: ProjectDao,
-    private val projectFairApi: ProjectFairApi
+    private val adminProjectFairApi: AdminProjectFairApi
 ): ProjectRepository {
 
     override suspend fun uploadProjects() {
         withContext(ioDispatcher) {
-            val projects = projectFairApi.getProjects()
+            val projects = adminProjectFairApi.getProjects()
 
             projects.forEach {
+                println(it.specialities)
                 insertProject(
                     projectResponseToResponse(it)
                 )

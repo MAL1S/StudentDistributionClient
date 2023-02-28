@@ -4,9 +4,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object BaseClient {
+abstract class BaseClient {
 
-    private const val BASE_URL = "https://projfair.istu.edu/api/admin/"
+    abstract val BASE_URL: String
 
     private fun getOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
@@ -21,4 +21,12 @@ object BaseClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+}
+
+object OrdinaryClient: BaseClient() {
+    override val BASE_URL = "https://projfair.istu.edu/api/"
+}
+
+object AdminClient: BaseClient() {
+    override val BASE_URL = "https://projfair.istu.edu/api/admin/"
 }

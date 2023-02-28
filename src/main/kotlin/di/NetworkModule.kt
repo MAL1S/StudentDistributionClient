@@ -2,7 +2,8 @@ package di
 
 import dagger.Module
 import dagger.Provides
-import data.remote.api.ProjectFairApi
+import data.remote.api.AdminProjectFairApi
+import data.remote.api.OrdinaryProjectFairApi
 import data.remote.client.ProjectFairClient
 
 @Module
@@ -12,8 +13,14 @@ interface NetworkModule {
 
         @AppScope
         @Provides
-        fun provideProjectFairApi(): ProjectFairApi {
-            return ProjectFairClient.getClient()
+        fun provideOrdinaryProjectFairApi(): OrdinaryProjectFairApi {
+            return ProjectFairClient.getOrdinaryClient()
+        }
+
+        @AppScope
+        @Provides
+        fun provideAdminProjectFairApi(): AdminProjectFairApi {
+            return ProjectFairClient.getAdminClient()
         }
     }
 }

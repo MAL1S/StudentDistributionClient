@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import data.local.dao.ProjectDao
 import data.local.dao.StudentDao
-import data.remote.api.ProjectFairApi
+import data.remote.api.AdminProjectFairApi
 import data.repository.ProjectRepositoryImpl
 import data.repository.StudentRepositoryImpl
 import data.repository.UploadDataRepositoryImpl
@@ -49,12 +49,12 @@ interface RepositoryModule {
         fun provideProjectRepository(
             ioDispatcher: CoroutineDispatcher,
             projectDao: ProjectDao,
-            projectFairApi: ProjectFairApi
+            adminProjectFairApi: AdminProjectFairApi
         ): ProjectRepository {
             return ProjectRepositoryImpl(
                 ioDispatcher = ioDispatcher,
                 projectDao = projectDao,
-                projectFairApi = projectFairApi
+                adminProjectFairApi = adminProjectFairApi
             )
         }
     }
