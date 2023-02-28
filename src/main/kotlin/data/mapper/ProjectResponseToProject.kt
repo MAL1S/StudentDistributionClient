@@ -11,6 +11,7 @@ fun projectResponseToResponse(project: ProjectResponse): Project {
         freePlaces = project.places,
         goal = project.goal,
         difficulty = project.difficulty,
+        description = project.description,
         dateStart = project.dateStart,
         dateEnd = project.dateEnd,
         customer = project.customer,
