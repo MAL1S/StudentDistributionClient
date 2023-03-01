@@ -53,6 +53,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
     implementation("io.realm.kotlin:library-base:1.5.0")
 
+//    @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+//    implementation(compose.material3)
+
+//    implementation("org.jetbrains.compose.material3:material3-desktop:1.3.0")
+//    implementation("org.jetbrains.compose.material:material-desktop:1.3.0")
+//    implementation("androidx.compose.ui:ui-desktop:1.3.3")
+
 
     implementation("br.com.devsrsouza.compose.icons.jetbrains:font-awesome:1.0.0")
     implementation("br.com.devsrsouza.compose.icons.jetbrains:simple-icons:1.0.0")
