@@ -4,6 +4,8 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import domain.model.Project
@@ -21,13 +23,16 @@ fun ProjectDetailsScreen(
             .verticalScroll(ScrollState(0))
     ) {
         val stateHolder = rememberExposedMenuStateHolder()
+        val supervisors = remember {
+            mutableStateListOf("Аршинский Вадим Леонидович", "Серышева Ирина Анатольевна")
+        }
 
         Row(modifier = Modifier.padding(16.dp)) {
             BackButton(navController = navController)
             Spacer(modifier = Modifier.size(16.dp))
             TitleField(title = project.title)
         }
-        ExposedDropdownMenu(stateHolder)
+        ExposedDropdownMenuWithChips(stateHolder, supervisors)
         EditableDescriptionField(title = "Цель проекта", content = project.goal ?: "")
         RadioButtonGroup(titles = listOf("Легко", "Сложно", "Трудно"), selected = project.difficulty-1, title = "Сложность")
         EditableDescriptionField(title = "Заказчик", content = project.customer ?: "")

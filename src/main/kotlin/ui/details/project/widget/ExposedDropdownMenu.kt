@@ -5,14 +5,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
@@ -23,11 +21,55 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import common.theme.BlueMainDark
-import java.awt.FlowLayout
+
+@Composable
+fun ExposedDropdownMenuWithChips(
+    stateHolder: ExposedDropdownMenuStateHolder,
+    itemsState: SnapshotStateList<String>,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        ChipsVerticalGrid(itemsState)
+        ExposedDropdownMenu(stateHolder, itemsState) { item ->
+            if (!itemsState.contains(item)) {
+                itemsState.add(item)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun ChipsVerticalGrid(
+    itemsState: SnapshotStateList<String>,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        itemsState.chunked(3).forEach { threeRow ->
+            Row {
+                threeRow.forEach { item ->
+                    Chip(
+                        onClick = {
+
+                        }
+                    ) {
+                        Text(item)
+                    }
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun ExposedDropdownMenu(
     stateHolder: ExposedDropdownMenuStateHolder,
+    items: List<String>,
+    onItemClicked: (String) -> Unit,
 ) {
     Box {
         Row(
@@ -65,14 +107,15 @@ fun ExposedDropdownMenu(
                     stateHolder.size.width.toDp()
                 }),
         ) {
-            stateHolder.items.forEachIndexed { index, s ->
+            stateHolder.setItems(items)
+            stateHolder.items.forEachIndexed { index, item ->
                 DropdownMenuItem(
                     onClick = {
-                        stateHolder.onSelectedIndex(index)
                         stateHolder.onEnabled(false)
+                        onItemClicked(item)
                     }
                 ) {
-                    Text(text = s)
+                    Text(text = item)
                 }
             }
         }
@@ -81,23 +124,21 @@ fun ExposedDropdownMenu(
 
 class ExposedDropdownMenuStateHolder {
     var enabled by mutableStateOf(false)
-    var value by mutableStateOf("")
-    var selectedIndex by mutableStateOf(-1)
+        private set
     var size by mutableStateOf(Size.Zero)
+        private set
     val icon: ImageVector
         @Composable get() = if (enabled) Icons.Default.KeyboardArrowUp
         else Icons.Default.KeyboardArrowDown
-    val items = (1..5).map {
-        "option $it"
+    var items: List<String> = emptyList()
+        private set
+
+    fun setItems(newItems: List<String>) {
+        items = newItems
     }
 
     fun onEnabled(newValue: Boolean) {
         enabled = newValue
-    }
-
-    fun onSelectedIndex(newValue: Int) {
-        selectedIndex = newValue
-        value = items[selectedIndex]
     }
 
     fun onSize(newValue: Size) {
