@@ -26,6 +26,16 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.TimesCircle
 
+fun String.toShortName(): String {
+    val name = this.split(" ")
+    var shortName = name[0]
+    (1..name.lastIndex).forEach {
+       shortName +=  " ${name[it][0]}."
+    }
+
+    return shortName
+}
+
 @Composable
 fun ExposedDropdownMenuWithChips(
     stateHolder: ExposedDropdownMenuStateHolder,
@@ -74,7 +84,7 @@ fun ChipsVerticalGrid(
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(item)
+                            Text(item.toShortName())
                             Spacer(Modifier.size(8.dp, 1.dp))
                             Icon(
                                 imageVector = FontAwesomeIcons.Solid.TimesCircle,
@@ -145,7 +155,7 @@ fun ExposedDropdownMenu(
                         onItemClicked(item)
                     }
                 ) {
-                    Text(text = item)
+                    Text(text = item.toShortName())
                 }
             }
         }

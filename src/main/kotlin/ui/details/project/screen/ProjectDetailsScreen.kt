@@ -24,9 +24,9 @@ fun ProjectDetailsScreen(
     ) {
         val stateHolder = rememberExposedMenuStateHolder()
         val supervisors = remember {
-            mutableStateListOf("Аршинский Вадим Леонидович", "Серышева Ирина Анатольевна")
+            mutableStateListOf("Аршинский Вадим Леонидович", "Серышева Ирина Анатольевна", "Лукаш Олег")
         }
-        val dropdownItems = mutableListOf<String>("Аршинский Вадим Леонидович", "Серышева Ирина Анатольевна")
+        val dropdownItems = mutableListOf<String>("Аршинский Вадим Леонидович", "Серышева Ирина Анатольевна", "Лукаш Олег")
 
         Row(modifier = Modifier.padding(16.dp)) {
             BackButton(navController = navController)
