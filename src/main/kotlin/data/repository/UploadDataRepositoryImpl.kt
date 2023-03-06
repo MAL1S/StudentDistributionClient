@@ -18,10 +18,15 @@ class UploadDataRepositoryImpl @Inject constructor(
     override suspend fun syncData(): Boolean {
         return withContext(ioDispatcher) {
             try {
+                println("0")
                 studentRepository.uploadStudents()
+                println("1")
                 projectRepository.uploadProjects()
+                println("2")
                 participationRepository.uploadParticipations()
+                println("3")
                 instituteRepository.uploadInstitutes()
+                println("4")
 
                 true
             } catch (e: Exception) {

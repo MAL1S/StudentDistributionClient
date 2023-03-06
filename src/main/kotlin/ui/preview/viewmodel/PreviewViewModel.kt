@@ -68,6 +68,8 @@ class PreviewViewModel @Inject constructor(
                 participations.value = it.list
 
                 val set = it.list.map { p -> p.studentId }.toSet()
+                println(set)
+                println(students.value.map { stud -> stud.id })
                 val with = mutableListOf<Student>()
                 val without = mutableListOf<Student>()
 
