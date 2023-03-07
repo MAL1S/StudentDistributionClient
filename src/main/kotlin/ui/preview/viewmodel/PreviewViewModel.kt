@@ -48,7 +48,6 @@ class PreviewViewModel @Inject constructor(
         coroutineScope.launch {
             getStudentsUseCase().collect {
                 students.value = it.list
-                println("students size = ${it.list.size}")
                 studentsIds.addAll(it.list.map { stud -> stud.id })
             }
         }
@@ -68,8 +67,6 @@ class PreviewViewModel @Inject constructor(
                 participations.value = it.list
 
                 val set = it.list.map { p -> p.studentId }.toSet()
-                println(set)
-                println(students.value.map { stud -> stud.id })
                 val with = mutableListOf<Student>()
                 val without = mutableListOf<Student>()
 
@@ -89,25 +86,4 @@ class PreviewViewModel @Inject constructor(
             }
         }
     }
-
-//    private fun getStudentsByParticipations() {
-//
-//        val participationsStudentIds = participations.value.map { it.studentId }.toSet()
-//        val studentsWithParticipationsLocal = mutableListOf<Student>()
-//        val studentsWithoutParticipationsLocal = mutableListOf<Student>()
-//
-//        students.value.forEach { stud ->
-//            if (!participationsStudentIds.contains(stud.id)) {
-//                studentsWithoutParticipationsLocal.add(stud)
-//            } else {
-//                studentsWithParticipationsLocal.add(stud)
-//            }
-//        }
-//
-//        println("total with = ${studentsWithParticipationsLocal.size}")
-//        println("total without = ${studentsWithoutParticipationsLocal.size}")
-//
-//        studentsWithParticipations.value = studentsWithParticipationsLocal
-//        studentsWithoutParticipations.value = studentsWithoutParticipationsLocal
-//    }
 }

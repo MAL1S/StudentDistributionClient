@@ -49,9 +49,7 @@ class ParticipationRepositoryImpl @Inject constructor(
         withContext(ioDispatcher) {
             val participations = adminProjectFairApi.getParticipations()
 
-            var count = 0
             participations.forEach {
-                println(++count)
                 insertParticipation(participationResponseToParticipation(it))
             }
         }
