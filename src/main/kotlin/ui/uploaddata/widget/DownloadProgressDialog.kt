@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import common.compose.VisibleDialog
+import ui.uploaddata.viewmodel.DownloadType
 
 @Composable
 fun DownloadProgressDialog(
     visible: Boolean,
-    progressBars: List<ProgressItem>,
+    prgs: Float,
+    progressBars: Map<DownloadType, Float>,
     onDismissRequest: () -> Unit,
 ) {
     VisibleDialog(
@@ -23,11 +25,11 @@ fun DownloadProgressDialog(
             Column {
                 progressBars.forEach { progressItem ->
                     Row {
-                        Text(progressItem.title)
+                        Text(progressItem.key.name)
                         Spacer(Modifier.size(width = 8.dp, height = 1.dp))
-                        DownloadProgressBar(progressItem.progress)
+                        DownloadProgressBar(progressItem.value)
                         Spacer(Modifier.size(width = 8.dp, height = 1.dp))
-                        Text("${progressItem.progress*100}%")
+                        Text("${progressItem.value*100}%")
                     }
                 }
             }
