@@ -1,13 +1,12 @@
 package ui.uploaddata.widget
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import common.compose.VisibleDialog
 import ui.uploaddata.viewmodel.DownloadType
@@ -22,15 +21,30 @@ fun DownloadProgressDialog(
     VisibleDialog(
         visible = visible,
         textPart = {
-            Column {
+            Column(
+                modifier = Modifier.size(width = 400.dp, height = Dp.Unspecified).fillMaxWidth().wrapContentHeight()
+            ) {
                 progressBars.forEach { progressItem ->
-                    Row {
-                        Text(progressItem.key.name)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = progressItem.key.name,
+                            modifier = Modifier.fillMaxWidth(0.3f)
+                        )
                         Spacer(Modifier.size(width = 8.dp, height = 1.dp))
-                        DownloadProgressBar(progressItem.value)
+                        DownloadProgressBar(
+                            progress = progressItem.value,
+                            modifier = Modifier.fillMaxWidth(0.7f)
+                        )
                         Spacer(Modifier.size(width = 8.dp, height = 1.dp))
-                        Text("${progressItem.value*100}%")
+                        Text(
+                            text = "${String.format("%.2f", progressItem.value*100)}%",
+                            modifier = Modifier.fillMaxWidth()
+                        )
                     }
+                    Spacer(Modifier.size(16.dp))
                 }
             }
         },
@@ -45,12 +59,8 @@ fun DownloadProgressDialog(
 
 @Composable
 private fun DownloadProgressBar(
+    modifier: Modifier = Modifier,
     progress: Float,
 ) {
-    LinearProgressIndicator(progress = progress)
+    LinearProgressIndicator(modifier = modifier, progress = progress)
 }
-
-data class ProgressItem(
-    val title: String,
-    var progress: Float,
-)
