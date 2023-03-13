@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import common.compose.VisibleDialog
 import common.theme.BlueMainLight
-import common.theme.BlueMainLight200
+import common.theme.BlueMainLight25
 import ui.uploaddata.viewmodel.DownloadType
 
 @Composable
@@ -64,5 +64,5 @@ private fun DownloadProgressBar(
     modifier: Modifier = Modifier,
     progress: Float,
 ) {
-    LinearProgressIndicator(modifier = modifier, progress = progress, color = BlueMainLight, backgroundColor = BlueMainLight200)
+    LinearProgressIndicator(modifier = modifier, progress = progress, color = BlueMainLight, backgroundColor = BlueMainLight25)
 }
