@@ -1,9 +1,6 @@
 package ui.preview.screen
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -49,43 +46,49 @@ fun PreviewScreen(
 
     Scaffold(
         topBar = {
-            Row {
-                TabHome(
-                    modifier = Modifier.size(width = 400.dp, height = Dp.Unspecified),
-                    selectedTabIndex = previewTabPage.ordinal,
-                    values = PreviewTabPage.values().toList(),
-                    onSelectedTab = {
-                        previewViewModel.previewTabPage.value = it as PreviewTabPage
-                        previewTabPage = it
-                    }
-                )
+            Box {
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    TabHome(
+                        modifier = Modifier.size(width = 400.dp, height = Dp.Unspecified),
+                        selectedTabIndex = previewTabPage.ordinal,
+                        values = PreviewTabPage.values().toList(),
+                        onSelectedTab = {
+                            previewViewModel.previewTabPage.value = it as PreviewTabPage
+                            previewTabPage = it
+                        }
+                    )
 
-                if (previewTabPage == Students) {
-                    RadioButtonGroupRow(
-                        modifier = Modifier.align(Alignment.CenterVertically),
-                        titles = listOf(
-                            Title(Enrolled.title, Enrolled.name),
-                            Title(Uncounted.title, Uncounted.name)
-                        ),
-                        selected = studentTabPageToIndex()
-                    ) {
-                        studentsTabPage = StudentsTabPage.fromString(it.name!!)
+                    if (previewTabPage == Students) {
+                        RadioButtonGroupRow(
+                            modifier = Modifier.align(Alignment.CenterVertically),
+                            titles = listOf(
+                                Title(Enrolled.title, Enrolled.name),
+                                Title(Uncounted.title, Uncounted.name)
+                            ),
+                            selected = studentTabPageToIndex()
+                        ) {
+                            studentsTabPage = StudentsTabPage.fromString(it.name!!)
 
-                        studentsToDisplay = when (studentsTabPage) {
-                            Enrolled -> {
-                                studentsWithParticipations
-                            }
+                            studentsToDisplay = when (studentsTabPage) {
+                                Enrolled -> {
+                                    studentsWithParticipations
+                                }
 
-                            Uncounted -> {
-                                studentsWithoutParticipations
+                                Uncounted -> {
+                                    studentsWithoutParticipations
+                                }
                             }
                         }
                     }
                 }
 
                 FilterButton(
-                    modifier = Modifier.size(40.dp),
-                    filterConfiguration = Filter(emptyMap())
+                    modifier = Modifier
+                        .padding(end = 24.dp)
+                        .size(60.dp)
+                        .align(Alignment.CenterEnd)
                 ) {
                     showFilter = true
                 }
