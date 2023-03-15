@@ -154,7 +154,6 @@ fun UploadDataScreenView(
 
         DownloadProgressDialog(
             showDownloadProgress,
-            prgs = studentsDownloadProgress,
             progressBars = downloadProgressMap,
             onDismissRequest = {
                 showDownloadProgress = false
