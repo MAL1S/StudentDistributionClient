@@ -37,7 +37,7 @@ interface FilterConfiguration {
 fun FilterButton(
     modifier: Modifier = Modifier,
     filterConfiguration: FilterConfiguration,
-    onClicked: @Composable (FilterConfiguration) -> Unit,
+    onClicked: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -48,7 +48,7 @@ fun FilterButton(
             modifier = Modifier
                 .padding(8.dp)
                 .clickable {
-                    onClicked(filterConfiguration)
+                    onClicked()
                 }
         )
     }

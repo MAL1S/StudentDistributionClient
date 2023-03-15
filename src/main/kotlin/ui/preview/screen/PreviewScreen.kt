@@ -13,6 +13,9 @@ import androidx.compose.ui.unit.dp
 import common.compose.RadioButtonGroupRow
 import common.compose.Title
 import navigation.NavController
+import ui.filter.FilterButton
+import ui.filter.FilterConfiguration
+import ui.filter.FilterType
 import ui.preview.viewmodel.PreviewViewModel
 import ui.preview.widget.*
 import ui.preview.widget.PreviewTabPage.Projects
@@ -27,6 +30,8 @@ fun PreviewScreen(
 ) {
     var previewTabPage by remember { mutableStateOf(previewViewModel.previewTabPage.value) }
     var studentsTabPage by remember { mutableStateOf(Enrolled) }
+
+    var showFilter by remember { mutableStateOf(false) }
 
     fun studentTabPageToIndex(): Int {
         return when (studentsTabPage) {
@@ -70,11 +75,19 @@ fun PreviewScreen(
                             Enrolled -> {
                                 studentsWithParticipations
                             }
+
                             Uncounted -> {
                                 studentsWithoutParticipations
                             }
                         }
                     }
+                }
+
+                FilterButton(
+                    modifier = Modifier.size(40.dp),
+                    filterConfiguration = Filter(emptyMap())
+                ) {
+                    showFilter = true
                 }
             }
         },
@@ -89,6 +102,7 @@ fun PreviewScreen(
                     navController
                 )
             }
+
             Projects -> {
                 ProjectTable(
                     modifier = Modifier.padding(24.dp),
@@ -98,5 +112,23 @@ fun PreviewScreen(
                 )
             }
         }
+
+        ProjectFilterDialog(
+            visible = showFilter,
+            projectFilterConfiguration = ProjectFilterConfiguration(
+                institutes = emptyList(),
+                departments = emptyList()
+            ),
+            onApplyClicked = {
+
+            },
+            onDismissRequest = {
+                showFilter = false
+            }
+        )
     }
+}
+
+class Filter(override val filters: Map<FilterType, List<Any>>) : FilterConfiguration {
+
 }
