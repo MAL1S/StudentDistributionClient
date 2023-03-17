@@ -18,20 +18,26 @@ import common.theme.BlueMainLight
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Filter
-import domain.Department
-import domain.model.Institute
-import kotlin.reflect.KClass
 
-enum class FilterType(
-    name: String,
-    type: KClass<out Any>,
-) {
-    INSTITUTES(name = "Институты", type = Institute::class),
-    DEPARTMENTS(name = "Кафедры", type = Department::class)
+enum class FilterType(val title: String) {
+    INSTITUTE("Институт"),
+    DEPARTMENT("Кафедра")
 }
 
+sealed class FilterSelectedType(val name: String) {
+    object All : FilterSelectedType("Все")
+    data class Selected(val value: String): FilterSelectedType(value)
+}
+
+const val FILTER_ALL = "Все"
+
+data class FilterValue(
+    val values: List<String>,
+    var selectedValue: FilterSelectedType,
+)
+
 interface FilterConfiguration {
-    val filters: Map<FilterType, List<Any>>
+    val filters: MutableMap<FilterType, FilterValue>
 }
 
 @Composable
@@ -71,7 +77,8 @@ fun FilterDialog(
         },
         buttonsPart = {
             Row(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
                     onClick = {
@@ -81,7 +88,6 @@ fun FilterDialog(
                 ) {
                     Text("Применить")
                 }
-                Spacer(Modifier.size(16.dp))
                 Button(
                     onClick = {
                         onDismissRequest()

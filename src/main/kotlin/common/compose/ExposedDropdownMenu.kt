@@ -30,7 +30,7 @@ fun String.toShortName(): String {
     val name = this.split(" ")
     var shortName = name[0]
     (1..name.lastIndex).forEach {
-       shortName +=  " ${name[it][0]}."
+        shortName += " ${name[it][0]}."
     }
 
     return shortName
@@ -38,6 +38,8 @@ fun String.toShortName(): String {
 
 @Composable
 fun ExposedDropdownMenuWithChips(
+    title: String,
+    isTitleChangeable: Boolean,
     stateHolder: ExposedDropdownMenuStateHolder,
     itemsState: SnapshotStateList<String>,
     dropdownItems: List<String>,
@@ -50,7 +52,12 @@ fun ExposedDropdownMenuWithChips(
         ) {
             ChipsVerticalGrid(itemsState)
             Spacer(Modifier.size(8.dp))
-            ExposedDropdownMenu(stateHolder, dropdownItems) { clickedItem ->
+            ExposedDropdownMenu(
+                title = title,
+                isTitleChangeable = isTitleChangeable,
+                stateHolder = stateHolder,
+                items = dropdownItems
+            ) { _, clickedItem ->
                 if (!itemsState.contains(clickedItem)) {
                     itemsState.add(clickedItem)
                 }
@@ -106,14 +113,25 @@ fun ChipsVerticalGrid(
 
 @Composable
 fun ExposedDropdownMenu(
+    modifier: Modifier = Modifier,
+    title: String,
+    isTitleChangeable: Boolean,
     stateHolder: ExposedDropdownMenuStateHolder,
     items: List<String>,
-    onItemClicked: (String) -> Unit,
+    onItemClicked: (Int, String) -> Unit,
 ) {
-    Box {
+    var changeableTitle by remember { mutableStateOf(title) }
+
+    Box(
+        modifier = modifier
+            .onGloballyPositioned {
+                stateHolder.onSize(it.size.toSize())
+            }
+    ) {
         Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+            modifier = modifier
                 .clip(
                     RoundedCornerShape(10.dp)
                 )
@@ -127,14 +145,12 @@ fun ExposedDropdownMenu(
                 .padding(12.dp)
         ) {
             Text(
-                text = AnnotatedString("Выбрать преподавателя"),
-                modifier = Modifier.onGloballyPositioned {
-                    stateHolder.onSize(it.size.toSize())
-                }
+                text = AnnotatedString(changeableTitle),
+                modifier = Modifier
             )
             Icon(
                 imageVector = stateHolder.icon,
-                null
+                contentDescription = null,
             )
         }
         DropdownMenu(
@@ -152,7 +168,8 @@ fun ExposedDropdownMenu(
                 DropdownMenuItem(
                     onClick = {
                         stateHolder.onEnabled(false)
-                        onItemClicked(item)
+                        onItemClicked(index, item)
+                        if (isTitleChangeable) changeableTitle = item
                     }
                 ) {
                     Text(text = item.toShortName())
@@ -174,7 +191,6 @@ class ExposedDropdownMenuStateHolder {
         private set
 
     fun setItems(newItems: List<String>) {
-        //println(newItems)
         items = newItems
     }
 

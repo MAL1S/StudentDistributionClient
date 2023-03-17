@@ -9,10 +9,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import common.compose.RadioButtonGroupRow
 import common.compose.Title
+import domain.Department
+import domain.model.Institute
 import navigation.NavController
 import ui.filter.FilterButton
-import ui.filter.FilterConfiguration
-import ui.filter.FilterType
 import ui.preview.viewmodel.PreviewViewModel
 import ui.preview.widget.*
 import ui.preview.widget.PreviewTabPage.Projects
@@ -119,19 +119,15 @@ fun PreviewScreen(
         ProjectFilterDialog(
             visible = showFilter,
             projectFilterConfiguration = ProjectFilterConfiguration(
-                institutes = emptyList(),
-                departments = emptyList()
+                institutes = listOf(Institute(id = 0, name = "Институт информационных технологий и анализа данных"), Institute(id = 1, name = "Институт информационных технологий и анализа данныхИнститут информационных технологий и анализа данных"), Institute(id = 2, name = "third"), Institute(id = 3, name = "fourth")),
+                departments = listOf(Department(id = 0, name = "first"), Department(id = 1, name = "second"), Department(id = 2, name = "third"))
             ),
-            onApplyClicked = {
-
+            onApplyClicked = { projectFilterConfiguration ->
+                println(projectFilterConfiguration.filters)
             },
             onDismissRequest = {
                 showFilter = false
             }
         )
     }
-}
-
-class Filter(override val filters: Map<FilterType, List<Any>>) : FilterConfiguration {
-
 }
