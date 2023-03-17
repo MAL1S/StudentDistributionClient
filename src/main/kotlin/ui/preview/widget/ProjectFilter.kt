@@ -8,11 +8,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import common.compose.ExposedDropdownMenu
 import common.compose.rememberExposedMenuStateHolder
+import common.mapper.toShortInstitute
+import common.theme.BlueMainLight
 import domain.Department
 import domain.model.Institute
 import ui.filter.*
@@ -28,6 +31,8 @@ fun ProjectFilterDialog(
         visible = visible,
         filterContent = {
             Column {
+                Text(text = "Фильтры", color = BlueMainLight, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Spacer(Modifier.size(16.dp))
                 projectFilterConfiguration.filters.forEach { (filterType, filterValue) ->
                     val stateHolder = rememberExposedMenuStateHolder()
                     Row(
@@ -44,7 +49,8 @@ fun ProjectFilterDialog(
                             title = filterValue.selectedValue.name,
                             isTitleChangeable = true,
                             stateHolder = stateHolder,
-                            items = filterValue.values
+                            items = filterValue.values,
+                            toShortName = String::toShortInstitute
                         ) { index, itemClicked ->
                             projectFilterConfiguration
                                 .filters[filterType]!!

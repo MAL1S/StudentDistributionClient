@@ -48,7 +48,7 @@ fun PreviewScreen(
         topBar = {
             Box {
                 Row(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
                 ) {
                     TabHome(
                         modifier = Modifier.size(width = 400.dp, height = Dp.Unspecified),

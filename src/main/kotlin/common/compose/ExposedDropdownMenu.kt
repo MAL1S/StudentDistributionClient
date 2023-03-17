@@ -27,23 +27,15 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.TimesCircle
 
-fun String.toShortName(): String {
-    val name = this.split(" ")
-    var shortName = "${name[0]} "
-    (1..name.lastIndex).forEach {
-        shortName += "${name[it][0].uppercase()}."
-    }
-
-    return shortName
-}
-
 @Composable
 fun ExposedDropdownMenuWithChips(
+    modifier: Modifier = Modifier,
     title: String,
     isTitleChangeable: Boolean,
     stateHolder: ExposedDropdownMenuStateHolder,
     itemsState: SnapshotStateList<String>,
     dropdownItems: List<String>,
+    toShortName: String.() -> String
 ) {
     BorderedTitledComposable(title = "Преподаватели") {
         Column(
@@ -51,13 +43,15 @@ fun ExposedDropdownMenuWithChips(
                 .fillMaxWidth()
                 .padding(12.dp)
         ) {
-            ChipsVerticalGrid(itemsState)
+            ChipsVerticalGrid(itemsState, toShortName)
             Spacer(Modifier.size(8.dp))
             ExposedDropdownMenu(
+                modifier = modifier,
                 title = title,
                 isTitleChangeable = isTitleChangeable,
                 stateHolder = stateHolder,
-                items = dropdownItems
+                items = dropdownItems,
+                toShortName = toShortName
             ) { _, clickedItem ->
                 if (!itemsState.contains(clickedItem)) {
                     itemsState.add(clickedItem)
@@ -71,6 +65,7 @@ fun ExposedDropdownMenuWithChips(
 @Composable
 fun ChipsVerticalGrid(
     itemsState: SnapshotStateList<String>,
+    toShortName: String.() -> String
 ) {
     Column(
         modifier = Modifier
@@ -119,6 +114,7 @@ fun ExposedDropdownMenu(
     isTitleChangeable: Boolean,
     stateHolder: ExposedDropdownMenuStateHolder,
     items: List<String>,
+    toShortName: String.() -> String,
     onItemClicked: (Int, String) -> Unit,
 ) {
     var changeableTitle by remember { mutableStateOf(title) }
@@ -147,7 +143,7 @@ fun ExposedDropdownMenu(
         ) {
             Text(
                 text = AnnotatedString(changeableTitle.toShortName()),
-                modifier = Modifier.fillMaxWidth(0.8f),
+                modifier = Modifier.fillMaxWidth(0.9f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
