@@ -40,7 +40,7 @@ fun ProjectFilterDialog(
                         Spacer(Modifier.size(16.dp))
                         ExposedDropdownMenu(
                             modifier = Modifier
-                                .size(width = 200.dp, height = Dp.Unspecified),
+                                .size(width = 400.dp, height = Dp.Unspecified),
                             title = filterValue.selectedValue.name,
                             isTitleChangeable = true,
                             stateHolder = stateHolder,

@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import common.theme.BlueMainDark
@@ -28,9 +29,9 @@ import compose.icons.fontawesomeicons.solid.TimesCircle
 
 fun String.toShortName(): String {
     val name = this.split(" ")
-    var shortName = name[0]
+    var shortName = "${name[0]} "
     (1..name.lastIndex).forEach {
-        shortName += " ${name[it][0]}."
+        shortName += "${name[it][0].uppercase()}."
     }
 
     return shortName
@@ -145,12 +146,15 @@ fun ExposedDropdownMenu(
                 .padding(12.dp)
         ) {
             Text(
-                text = AnnotatedString(changeableTitle),
-                modifier = Modifier
+                text = AnnotatedString(changeableTitle.toShortName()),
+                modifier = Modifier.fillMaxWidth(0.8f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Icon(
                 imageVector = stateHolder.icon,
                 contentDescription = null,
+                modifier = Modifier.fillMaxWidth()
             )
         }
         DropdownMenu(
