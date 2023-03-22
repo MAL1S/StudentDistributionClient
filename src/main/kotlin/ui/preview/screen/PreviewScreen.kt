@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import common.compose.RadioButtonGroupRow
 import common.compose.Title
-import domain.Department
+import domain.model.Department
 import domain.model.Institute
 import navigation.NavController
 import ui.filter.FilterConfigurationBlock
@@ -44,7 +44,7 @@ fun PreviewScreen(
 
     var studentsToDisplay by remember { mutableStateOf(students) }
 
-    var projectFilterConfiguration by remember {
+    var instituteFilterConfiguration by remember {
         mutableStateOf(
             InstituteFilterConfiguration(
                 institutes = listOf(
@@ -87,7 +87,7 @@ fun PreviewScreen(
     }
 
     val filterConfiguration: InstituteFilterConfiguration =
-        if (previewTabPage == Students) studentFilterConfiguration else projectFilterConfiguration
+        if (previewTabPage == Students) studentFilterConfiguration else instituteFilterConfiguration
 
     Scaffold(
         topBar = {
@@ -173,7 +173,7 @@ fun PreviewScreen(
                     }
 
                     Projects -> {
-                        projectFilterConfiguration = filterConfig
+                        instituteFilterConfiguration = filterConfig
                     }
                 }
             },

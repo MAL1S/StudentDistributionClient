@@ -2,7 +2,7 @@ package ui.preview.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import base.mvi.BaseViewModel
-import domain.Department
+import domain.model.Department
 import domain.model.Institute
 import domain.model.Participation
 import domain.model.Project
@@ -12,8 +12,11 @@ import domain.usecase.project.GetProjectsUseCase
 import domain.usecase.student.GetStudentsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import ui.filter.FilterType
 import ui.preview.contract.PreviewContract
+import ui.preview.widget.InstituteFilterConfiguration
 import ui.preview.widget.PreviewTabPage
+import ui.preview.widget.ProjectFilterApplier
 
 class PreviewViewModel constructor(
     private val getStudentsUseCase: GetStudentsUseCase,
@@ -37,6 +40,8 @@ class PreviewViewModel constructor(
     val participations = MutableStateFlow<List<Participation>>(emptyList())
     val institutes = MutableStateFlow<List<Institute>>(emptyList())
     val departments = MutableStateFlow<List<Department>>(emptyList())
+
+    val filteredProjects = MutableStateFlow<List<Project>>(emptyList())
 
     val studentsWithParticipations = MutableStateFlow<List<Student>>(emptyList())
     val studentsWithoutParticipations = MutableStateFlow<List<Student>>(emptyList())
@@ -103,5 +108,14 @@ class PreviewViewModel constructor(
             println(it.id)
         }
         return projects.value.find { proj -> proj.id == projectId }
+    }
+
+    fun filteredProjects(instituteFilterConfiguration: InstituteFilterConfiguration) {
+        val newProjects = ProjectFilterApplier(
+            projects = projects.value,
+            institute = instituteFilterConfiguration.filters[FilterType.INSTITUTE]!!.selectedValue.filterEntity as Institute,
+            department = instituteFilterConfiguration.filters[FilterType.INSTITUTE]!!.selectedValue.filterEntity as Department
+        ).applyAndGet()
+        filteredProjects.value = newProjects
     }
 }
