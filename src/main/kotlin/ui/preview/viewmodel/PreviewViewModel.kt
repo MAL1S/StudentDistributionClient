@@ -2,11 +2,7 @@ package ui.preview.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import base.mvi.BaseViewModel
-import domain.model.Department
-import domain.model.Institute
-import domain.model.Participation
-import domain.model.Project
-import domain.model.Student
+import domain.model.*
 import domain.usecase.participation.GetParticipationsUseCase
 import domain.usecase.project.GetProjectsUseCase
 import domain.usecase.student.GetStudentsUseCase
@@ -36,8 +32,8 @@ class PreviewViewModel constructor(
     }
 
     val students = MutableStateFlow<List<Student>>(emptyList())
-    val projects = MutableStateFlow<List<Project>>(emptyList())
-    val participations = MutableStateFlow<List<Participation>>(emptyList())
+    private val projects = MutableStateFlow<List<Project>>(emptyList())
+    private val participations = MutableStateFlow<List<Participation>>(emptyList())
     val institutes = MutableStateFlow<List<Institute>>(emptyList())
     val departments = MutableStateFlow<List<Department>>(emptyList())
 
@@ -90,9 +86,6 @@ class PreviewViewModel constructor(
                     }
                 }
 
-                println("total with = ${with.size}")
-                println("total without = ${without.size}")
-
                 studentsWithParticipations.value = with
                 studentsWithoutParticipations.value = without
             }
@@ -110,11 +103,21 @@ class PreviewViewModel constructor(
         return projects.value.find { proj -> proj.id == projectId }
     }
 
-    fun filteredProjects(instituteFilterConfiguration: InstituteFilterConfiguration) {
+    fun filterProjects(instituteFilterConfiguration: InstituteFilterConfiguration) {
+        val institute = try {
+            instituteFilterConfiguration.filters[FilterType.INSTITUTE]!!.selectedValue.filterEntity as Institute
+        } catch (e: ClassCastException) {
+            null
+        }
+        val department = try {
+            instituteFilterConfiguration.filters[FilterType.INSTITUTE]!!.selectedValue.filterEntity as Department
+        } catch (e: ClassCastException) {
+            null
+        }
         val newProjects = ProjectFilterApplier(
             projects = projects.value,
-            institute = instituteFilterConfiguration.filters[FilterType.INSTITUTE]!!.selectedValue.filterEntity as Institute,
-            department = instituteFilterConfiguration.filters[FilterType.INSTITUTE]!!.selectedValue.filterEntity as Department
+            institute = institute,
+            department = department
         ).applyAndGet()
         filteredProjects.value = newProjects
     }

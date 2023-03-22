@@ -40,11 +40,11 @@ fun PreviewScreen(
     val studentsWithParticipations = previewViewModel.studentsWithParticipations.collectAsState()
     val studentsWithoutParticipations = previewViewModel.studentsWithoutParticipations.collectAsState()
     val students = previewViewModel.students.collectAsState()
-    val projects = previewViewModel.projects.collectAsState()
+    val projects = previewViewModel.filteredProjects.collectAsState()
 
     var studentsToDisplay by remember { mutableStateOf(students) }
 
-    var instituteFilterConfiguration by remember {
+    var projectFilterConfiguration by remember {
         mutableStateOf(
             InstituteFilterConfiguration(
                 institutes = listOf(
@@ -87,7 +87,9 @@ fun PreviewScreen(
     }
 
     val filterConfiguration: InstituteFilterConfiguration =
-        if (previewTabPage == Students) studentFilterConfiguration else instituteFilterConfiguration
+        if (previewTabPage == Students) studentFilterConfiguration else projectFilterConfiguration
+
+    previewViewModel.filterProjects(projectFilterConfiguration)
 
     Scaffold(
         topBar = {
@@ -173,7 +175,7 @@ fun PreviewScreen(
                     }
 
                     Projects -> {
-                        instituteFilterConfiguration = filterConfig
+                        projectFilterConfiguration = filterConfig
                     }
                 }
             },
